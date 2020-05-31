@@ -10,4 +10,6 @@ https://dotnet.microsoft.com/download/dotnet-core/2.1
 
 Всё необходимое для устновки Pilot-Server и админки здесь: https://pilot.ascon.ru/
 
+Подробная инструкция по установке и подключению [Pilot-Web-Client](https://github.com/bileygdotcom/pilot-web-client-netcorerelease/blob/master/Pilot-Web-Client_ReadMe.pdf)
+
 Инструкция развёртывания всех компонентов Pilot: https://pilot.ascon.ru/release/Help/ru/ReadMe.pdf
