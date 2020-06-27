@@ -26,7 +26,7 @@ namespace Ascon.Pilot.Web
                 ? Configuration.GetValue<string>("PilotServer:Database", string.Empty)
                 : Program.Database;
             LicenseCode = Configuration.GetValue<int>("PilotServer:LicenseCode", 103);
-            InactiveSessionTimeout = Configuration.GetValue<int>("PilotServer:InactiveSessionTimeout", 20);
+            InactiveSessionTimeout = Configuration.GetValue<int>("PilotServer:InactiveSessionTimeout", 5);
         }
 
         public static readonly int LicenseCode;
