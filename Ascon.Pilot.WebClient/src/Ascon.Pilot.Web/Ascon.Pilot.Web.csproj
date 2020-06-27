@@ -14,12 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ascon.Pilot.Common" Version="18.37.0.30607" />
-    <PackageReference Include="Ascon.Pilot.DataClasses" Version="18.37.0.30607" />
-    <PackageReference Include="Ascon.Pilot.Server.Api" Version="18.37.0.30607" />
-    <PackageReference Include="Ascon.Pilot.Transport" Version="18.37.0.30607" />
+    <PackageReference Include="Ascon.Pilot.Common" Version="20.3.0" />
+    <PackageReference Include="Ascon.Pilot.DataClasses" Version="20.3.0" />
+    <PackageReference Include="Ascon.Pilot.Server.Api" Version="20.3.0" />
+    <PackageReference Include="Ascon.Pilot.Transport" Version="20.3.0" />
     <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>

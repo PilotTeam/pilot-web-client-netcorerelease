@@ -8,18 +8,32 @@ namespace Ascon.Pilot.Web.Models
     public interface IContextHolder : IDisposable
     {
         IContext GetContext(HttpContext httpContext);
-        IContext NewContext(Guid id);
+        IContext NewContext(Guid contextId);
+        void RemoveContext(Guid contextId);
     }
 
-    public class ContextHolder : IContextHolder
+    public class ContextHolder : IContextHolder, IContextLifetimeListener
     {
+        private readonly IContextLifetimeService _lifetimeService;
         private readonly Dictionary<Guid, IContext> _contexts = new Dictionary<Guid, IContext>();
 
-        public IContext NewContext(Guid id)
+        public ContextHolder(IContextLifetimeService lifetimeService)
+        {
+            _lifetimeService = lifetimeService;
+            _lifetimeService.SetContextLifetimeListener(this);
+        }
+
+        public IContext NewContext(Guid contextId)
         {
             var context = new Context();
-            RegisterClient(context, id);
+            RegisterClient(context, contextId);
             return context;
+        }
+
+        public void RemoveContext(Guid contextId)
+        {
+            UnregisterClient(contextId);
+            _lifetimeService.Unregister(contextId);
         }
 
         public IContext GetContext(HttpContext httpContext)
@@ -29,19 +43,26 @@ namespace Ascon.Pilot.Web.Models
             if (!string.IsNullOrEmpty(clientIdString))
             {
                 var clientId = Guid.Parse(clientIdString);
-                if (_contexts.ContainsKey(clientId))
+                if (_contexts.TryGetValue(clientId, out var client))
                 {
-                    var client = _contexts[clientId];
                     if (client.IsInitialized)
+                    {
+                        _lifetimeService.Renewal(clientId);
                         return client;
+                    }
                 }
-
+                
                 var context = NewContext(clientId);
                 context.Build(httpContext);
                 return context;
             }
 
             return null;
+        }
+
+        public void OnTimeIsUp(Guid contextId)
+        {
+            UnregisterClient(contextId);
         }
 
         public void Dispose()
@@ -57,7 +78,17 @@ namespace Ascon.Pilot.Web.Models
         private void RegisterClient(IContext client, Guid clientId)
         {
             _contexts[clientId] = client;
+            _lifetimeService.Register(clientId);
         }
 
+        private void UnregisterClient(Guid contextId)
+        {
+            if (_contexts.TryGetValue(contextId, out var context))
+            {
+                context.Dispose();
+            }
+
+            _contexts.Remove(contextId);
+        }
     }
 }

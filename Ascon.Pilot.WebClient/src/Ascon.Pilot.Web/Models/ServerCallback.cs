@@ -1,4 +1,5 @@
-﻿using Ascon.Pilot.DataClasses;
+﻿using System;
+using Ascon.Pilot.DataClasses;
 using Ascon.Pilot.Server.Api.Contracts;
 
 namespace Ascon.Pilot.Web.Models
@@ -27,6 +28,11 @@ namespace Ascon.Pilot.Web.Models
 
         public void NotifyDNotificationChangeset(DNotificationChangeset changeset)
         {
+        }
+
+        public void NotifyCommandResult(Guid requestId, byte[] data, ServerCommandResult result)
+        {
+            
         }
 
         public void NotifyGeometrySearchResult(DGeometrySearchResult searchResult)

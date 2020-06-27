@@ -22,7 +22,7 @@ namespace Ascon.Pilot.Web.Models
 
     class Repository : IRepository, IRemoteStorageListener
     {
-        private IServerApi _serverApi;
+        private readonly IServerApi _serverApi;
         private Dictionary<int, DPerson> _persons = new Dictionary<int, DPerson>();
         private Dictionary<int, DOrganisationUnit> _organisationUnits = new Dictionary<int, DOrganisationUnit>();
         private TaskCompletionSource<DSearchResult> _searchCompletionSource;

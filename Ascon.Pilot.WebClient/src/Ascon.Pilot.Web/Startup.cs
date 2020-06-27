@@ -52,6 +52,7 @@ namespace Ascon.Pilot.Web
             });
 
             //
+            services.AddSingleton<IContextLifetimeService, ContextLifetimeService>();
             services.AddSingleton<IContextHolder, ContextHolder>();
             services.AddSingleton<IDocumentConverterFactory, DocumentConverterFactory>();
             services.AddSingleton<IDocumentRender, DocumentRender.DocumentRender>();

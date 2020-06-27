@@ -49,15 +49,11 @@ namespace Ascon.Pilot.Web.Models
             var dbName = context.User.FindFirstValue(ClaimTypes.Surname);
             var login = context.User.FindFirstValue(ClaimTypes.Name);
             var protectedPassword = context.User.FindFirstValue(ClaimTypes.UserData);
-            var clientIdString = context.User.FindFirstValue(ClaimTypes.Sid);
             var creds = Credentials.GetConnectionCredentials(dbName, login, protectedPassword.DecryptAes());
             Connect(creds);
         }
 
-        public IRepository Repository
-        {
-            get { return _repository; }
-        }
+        public IRepository Repository => _repository;
 
         public bool IsInitialized
         {
